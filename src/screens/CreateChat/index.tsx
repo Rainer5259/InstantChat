@@ -6,7 +6,7 @@ import {CreateChatScreenCustomProps} from '../../routes/types';
 import styles from './styles';
 import 'react-native-get-random-values';
 import createChat from '../../functions/createChat';
-import {setChatData} from '../../redux/features/chat_id';
+import {setChatData} from '../../redux/features/chatData';
 import {useDispatch} from 'react-redux';
 import ButtonComponent from '../../components/ButtonComponent';
 import {ChatProps} from '../../types/chat';
