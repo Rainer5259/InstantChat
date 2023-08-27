@@ -48,7 +48,7 @@ const CreateChat = ({navigation}: CreateChatScreenCustomProps) => {
 
       navigation.reset({
         index: 0,
-        routes: [{name: 'Chat', params: {chat_id: randomChatUUID}}],
+        routes: [{name: 'Chat'}],
       });
 
       setLoading(false);

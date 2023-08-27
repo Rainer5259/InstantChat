@@ -15,15 +15,10 @@ const styles = StyleSheet.create({
   },
   textInstantChat: {
     color: colors.text.skyBlue,
-    textShadowColor: colors.shadowColor.darkSlateGray,
-    textShadowOffset: {height: 20, width: 10},
-    textShadowRadius: 50,
   },
   inputTextContainer: {
-    padding: 15,
-    alignSelf: 'center',
-    textAlign: 'center',
-    marginBottom: '5%',
+    paddingHorizontal: 15,
+    marginBottom: 20,
     width: '80%',
     height: '8%',
     borderWidth: 1,
