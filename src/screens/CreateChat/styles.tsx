@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import colors from '../../components/theme';
+import colors from '../../components/theme/colors';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  textInstantChatCustom: {
+  textInstantChat: {
     color: colors.text.skyBlue,
     textShadowColor: colors.shadowColor.darkSlateGray,
     textShadowOffset: {height: 20, width: 10},

@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {View, Text, TextInput, ActivityIndicator} from 'react-native';
 import {v4 as uuidV4} from 'uuid';
+import 'react-native-get-random-values';
 import {CreateChatScreenCustomProps} from '../../routes/types';
 
 import styles from './styles';
-import 'react-native-get-random-values';
 import createChat from '../../functions/createChat';
 import {setChatData} from '../../redux/features/chatData';
 import {useDispatch} from 'react-redux';
@@ -36,7 +36,7 @@ const CreateChat = ({navigation}: CreateChatScreenCustomProps) => {
 
       const data: ChatProps = {
         chat_id: randomChatUUID,
-        users: {host_id: randomUserUUID, guest_id: ''},
+        users: {host_id: '', guest_id: ''},
         subject: subject,
         message: [],
         users_limit_per_chat: 2,
@@ -81,7 +81,7 @@ const CreateChat = ({navigation}: CreateChatScreenCustomProps) => {
         ) : (
           <Text style={styles.primaryText}>
             Click on me to generate {''}
-            <Text style={styles.textInstantChatCustom}>InstantChat</Text>
+            <Text style={styles.textInstantChat}>InstantChat</Text>
           </Text>
         )}
       </ButtonComponent>
