@@ -6,6 +6,7 @@ import {Provider} from 'react-redux';
 import CreateChat from '../screens/CreateChat';
 import Chat from '../screens/Chat';
 import store from '../redux/store';
+import Home from '../screens/Home';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -16,7 +17,9 @@ const Routes = () => {
         <Stack.Navigator
           screenOptions={{
             headerShown: false,
-          }}>
+          }}
+          initialRouteName="Home">
+          <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="CreateChat" component={CreateChat} />
           <Stack.Screen name="Chat" component={Chat} />
         </Stack.Navigator>
