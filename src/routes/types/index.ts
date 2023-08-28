@@ -1,7 +1,4 @@
 import type {RootStackParamList} from './RootStackParamList';
-import type {
-  ChatScreenCustomProps,
-  CreateChatScreenCustomProps,
-} from './NativeStackScreenCustomProps';
+import type {ChatScreenCustomProps} from './NativeStackScreenCustomProps';
 
-export {ChatScreenCustomProps, CreateChatScreenCustomProps, RootStackParamList};
+export {ChatScreenCustomProps, RootStackParamList};
