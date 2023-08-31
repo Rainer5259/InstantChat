@@ -5,27 +5,43 @@ import font from '../../components/theme/font';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background.faintGray,
+    backgroundColor: colors.background.defaultBeige,
+    alignItems: 'center',
   },
   content: {
     flex: 7,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    bottom: 100,
+    bottom: 20,
   },
-  button: {
-    backgroundColor: colors.background.beige,
-    height: 40,
+  primaryButton: {
+    backgroundColor: colors.background.mintGreen,
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15,
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
+    borderEndStartRadius: 10,
+    borderEndEndRadius: 10,
+  },
+  secondaryButton: {
+    backgroundColor: colors.background.mintGreen,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 15,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderEndStartRadius: 35,
+    borderEndEndRadius: 35,
   },
   buttonContainer: {
     flex: 4,
     width: '100%',
     paddingHorizontal: 20,
   },
-  primaryButton: {marginBottom: 10},
+  marginPrimaryButton: {marginBottom: 10},
   // @ts-ignore
   title: {
     ...font.style.halveticaBold,
@@ -40,9 +56,10 @@ const styles = StyleSheet.create({
     padding: 12,
     marginBottom: 20,
     minWidth: '80%',
-    borderWidth: 1,
-    borderRadius: 18,
-    borderColor: colors.border.paleBeigeGray,
+    height: 60,
+    borderWidth: 0.6,
+    borderRadius: 12,
+    borderColor: colors.border.lavender,
   },
 });
 export default styles;

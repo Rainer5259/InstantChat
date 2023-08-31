@@ -9,7 +9,7 @@ const App: JSX.ElementType = () => {
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: colors.background.faintGray,
+        backgroundColor: colors.background.defaultBeige,
       }}>
       <Routes />
       <Toast visibilityTime={3000} autoHide topOffset={60} />

@@ -1,7 +1,11 @@
 const colors = {
-  background: {faintGray: '#f0f0f0', beige: '#ebe6da', beigeGray: '#a6a194'},
-  border: {paleBeigeGray: '#ccc5b4', black: '#000000'},
-  text: {skyBlue: '#8bb4f7', shadowColor: '#39414f', black: '#000000'},
+  background: {
+    defaultBeige: '#FFFAEC',
+    mintGreen: '#DFECE4',
+    ivory: '#F8F4E9',
+  },
+  border: {lavender: '#AAA0D6', black: '#000000'},
+  text: {indigo: '#3C178C', shadowColor: '#39414f', black: '#000000'},
   shadowColor: {darkSlateGray: '#39414f'},
   opacityRGBA: {beigeGray: 'rgba(166, 161, 148, 0.3)'},
 };

@@ -12,7 +12,8 @@ import {setChatData} from '../../redux/features/chatData';
 import {HomeContent} from '../../utils/enums/screens';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
 import {HomeScreenCustomProps} from '../../routes/types/NativeStackScreenCustomProps';
-
+import colors from '../../components/theme/colors';
+import Logo from '../../assets/svg/logo_icon.svg';
 type UpdatesProps = {[key: string]: string};
 type UpdatesUserLimitProps = {[key: string]: number};
 
@@ -33,7 +34,7 @@ const Home = ({navigation}: HomeScreenCustomProps) => {
       {
         type: HomeContent.CREATE_CHAT,
         placeholder: 'Subject',
-        title: 'Instant Chat',
+
         value: inputValue,
         onPrimaryButtonPress: () => {
           handleCreateChat();
@@ -55,7 +56,6 @@ const Home = ({navigation}: HomeScreenCustomProps) => {
           setTypeContent(HomeContent.CREATE_CHAT);
         },
         placeholder: '****-****-****-****-************',
-        title: 'Chat ID',
         primaryButtonText: 'Join',
         secondaryButtonText: 'Create Chat',
       },
@@ -198,6 +198,7 @@ const Home = ({navigation}: HomeScreenCustomProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
+        <Logo height={240} width={240} />
         <Animated.View style={{transform: [{translateX: translateXNegative}]}}>
           <TextInput
             onChangeText={e => setInputValue(e)}
@@ -207,19 +208,18 @@ const Home = ({navigation}: HomeScreenCustomProps) => {
             maxLength={inputMaxLength}
           />
         </Animated.View>
-
-        <Text style={styles.title}>{content[typeContent].title}</Text>
       </View>
+
       <Animated.View
         style={[
           styles.buttonContainer,
           {transform: [{translateX: translateX}]},
         ]}>
-        <View style={styles.primaryButton}>
+        <View style={styles.marginPrimaryButton}>
           <ButtonComponent
             onPress={() => content[typeContent].onPrimaryButtonPress()}
             style={[
-              styles.button,
+              styles.primaryButton,
               inputValue.length < inputLimits && {opacity: 0.6},
             ]}
             disabled={inputValue.length < inputLimits && true}
@@ -227,7 +227,7 @@ const Home = ({navigation}: HomeScreenCustomProps) => {
             {loading ? (
               <ActivityIndicator />
             ) : (
-              <Text style={styles.primaryText}>
+              <Text style={[styles.primaryText, {color: colors.text.indigo}]}>
                 {content[typeContent].primaryButtonText}
               </Text>
             )}
@@ -235,7 +235,7 @@ const Home = ({navigation}: HomeScreenCustomProps) => {
         </View>
         <ButtonComponent
           onPress={() => content[typeContent].onSecondaryButtonPress()}
-          style={styles.button}
+          style={styles.secondaryButton}
           activeOpacity={0.6}>
           <Text style={styles.primaryText}>
             {content[typeContent].secondaryButtonText}
