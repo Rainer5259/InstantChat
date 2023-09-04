@@ -52,14 +52,21 @@ const styles = StyleSheet.create({
     ...font.style.halveticaBold,
   },
   inputTextContainer: {
-    textAlign: 'center',
-    padding: 12,
-    marginBottom: 20,
-    minWidth: '80%',
+    paddingLeft: 10,
+    minWidth: '90%',
     height: 60,
     borderWidth: 0.6,
     borderRadius: 12,
     borderColor: colors.border.lavender,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  pastIconBox: {
+    flex: 1,
+  },
+  textInputBox: {
+    flex: 9,
+    alignItems: 'center',
   },
 });
 export default styles;

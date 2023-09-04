@@ -14,6 +14,9 @@ import {Toast} from 'react-native-toast-message/lib/src/Toast';
 import {HomeScreenCustomProps} from '../../routes/types/NativeStackScreenCustomProps';
 import colors from '../../components/theme/colors';
 import Logo from '../../assets/svg/logo_icon.svg';
+import Past from '../../assets/svg/past_from_clipboard_icon.svg';
+import Clipboard from '@react-native-clipboard/clipboard';
+import {uuidV4Pattern} from '../../utils/masks';
 type UpdatesProps = {[key: string]: string};
 type UpdatesUserLimitProps = {[key: string]: number};
 
@@ -23,11 +26,34 @@ const Home = ({navigation}: HomeScreenCustomProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [inputLimits, setInputLimits] = useState(0);
   const [inputMaxLength, setInputMaxLength] = useState(0);
+  const [isJoinWithID, setIsJoinWithID] = useState<boolean>(true);
+
   const translateX = useRef(new Animated.Value(0)).current;
   const translateXNegative = useRef(new Animated.Value(0)).current;
 
   const dispatch = useDispatch();
   const db = getDatabase(app);
+
+  const formatChatID = (value: string) => {
+    const cleanedValue = value.replace(/[^0-9a-fA-F]/g, '');
+
+    const formattedValue = cleanedValue.replace(
+      uuidV4Pattern,
+      function (_, p1, p2, p3, p4, p5) {
+        let result = '';
+
+        if (p1) result += p1 + '-';
+        if (p2) result += p2 + '-';
+        if (p3) result += p3 + '-';
+        if (p4) result += p4 + '-';
+        if (p5) result += p5;
+
+        return result;
+      },
+    );
+
+    setInputValue(formattedValue);
+  };
 
   const content = useMemo(
     () => [
@@ -40,6 +66,7 @@ const Home = ({navigation}: HomeScreenCustomProps) => {
           handleCreateChat();
         },
         onSecondaryButtonPress: () => {
+          setIsJoinWithID(false);
           setInputValue('');
           setTypeContent(HomeContent.JOIN_WITH_CHAT_ID);
         },
@@ -54,10 +81,12 @@ const Home = ({navigation}: HomeScreenCustomProps) => {
         onSecondaryButtonPress: () => {
           setInputValue('');
           setTypeContent(HomeContent.CREATE_CHAT);
+          setIsJoinWithID(true);
         },
-        placeholder: '****-****-****-****-************',
+        placeholder: '********-****-****-****-************',
         primaryButtonText: 'Join',
         secondaryButtonText: 'Create Chat',
+        icon: <Past />,
       },
     ],
     [typeContent, inputValue],
@@ -73,10 +102,10 @@ const Home = ({navigation}: HomeScreenCustomProps) => {
       useNativeDriver: false,
     }).start();
   };
+
   const handleJoinWithChatID = async () => {
     setLoading(true);
     const randomGuestID: string = uuidV4();
-
     const setGuestID = () => {
       const data = {guest_id: randomGuestID};
       const updates: UpdatesProps = {};
@@ -84,6 +113,7 @@ const Home = ({navigation}: HomeScreenCustomProps) => {
       updates[endpoint] = data.guest_id;
       return update(ref(db), updates);
     };
+
     const fetchChatsInRealTime = () => {
       const endpoint = ref(db, `chats/${inputValue}/`);
       try {
@@ -129,16 +159,19 @@ const Home = ({navigation}: HomeScreenCustomProps) => {
           {onlyOnce: true},
         );
       } catch (e) {
-        throw e;
+        Toast.show({
+          type: 'error',
+          text1: 'An error occurred',
+        });
       } finally {
         setLoading(false);
       }
     };
     fetchChatsInRealTime();
   };
+
   const handleCreateChat = async () => {
     setLoading(true);
-
     try {
       const randomChatUUID: string = uuidV4();
       const getCurrentDate = new Date().getTime().toString();
@@ -180,6 +213,17 @@ const Home = ({navigation}: HomeScreenCustomProps) => {
     return;
   };
 
+  const handlePastFromClipboard = async () => {
+    let clipboardContent = await Clipboard.getString();
+
+    if (clipboardContent.length < 32 && !uuidV4Pattern.test(clipboardContent)) {
+      return Toast.show({type: 'error', text1: 'Chat ID Invalid!'});
+    } else {
+      formatChatID(clipboardContent);
+    }
+    return Toast.show({type: 'success', text1: 'Pasted', text2: inputValue});
+  };
+
   useEffect(() => {
     switch (typeContent) {
       case HomeContent.CREATE_CHAT:
@@ -200,13 +244,25 @@ const Home = ({navigation}: HomeScreenCustomProps) => {
       <View style={styles.content}>
         <Logo height={240} width={240} />
         <Animated.View style={{transform: [{translateX: translateXNegative}]}}>
-          <TextInput
-            onChangeText={e => setInputValue(e)}
-            value={inputValue}
-            style={styles.inputTextContainer}
-            placeholder={content[typeContent].placeholder}
-            maxLength={inputMaxLength}
-          />
+          <View style={styles.inputTextContainer}>
+            <View style={styles.textInputBox}>
+              <TextInput
+                onChangeText={e =>
+                  typeContent === HomeContent.CREATE_CHAT
+                    ? setInputValue(e)
+                    : formatChatID(e)
+                }
+                value={inputValue}
+                placeholder={content[typeContent].placeholder}
+                maxLength={inputMaxLength}
+              />
+            </View>
+            <ButtonComponent
+              style={[styles.pastIconBox, isJoinWithID && {flex: 0}]}
+              onPress={() => handlePastFromClipboard()}>
+              {content[typeContent].icon && content[typeContent].icon}
+            </ButtonComponent>
+          </View>
         </Animated.View>
       </View>
 
