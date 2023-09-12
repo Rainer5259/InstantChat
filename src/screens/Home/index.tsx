@@ -1,5 +1,13 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {Text, View, TextInput, Animated, ActivityIndicator} from 'react-native';
+import {
+  Text,
+  View,
+  TextInput,
+  Animated,
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import ButtonComponent from '../../components/ButtonComponent';
 import styles from './styles';
 import {ChatProps} from '../../types/chat';
@@ -216,7 +224,10 @@ const Home = ({navigation}: HomeScreenCustomProps) => {
   const handlePastFromClipboard = async () => {
     let clipboardContent = await Clipboard.getString();
 
-    if (clipboardContent.length < 32 && !uuidV4Pattern.test(clipboardContent)) {
+    if (
+      (clipboardContent.length < 32 && !uuidV4Pattern.test(clipboardContent)) ||
+      clipboardContent.length === 0
+    ) {
       return Toast.show({type: 'error', text1: 'Chat ID Invalid!'});
     } else {
       formatChatID(clipboardContent);
@@ -240,7 +251,9 @@ const Home = ({navigation}: HomeScreenCustomProps) => {
   }, [typeContent]);
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}>
       <View style={styles.content}>
         <Logo height={240} width={240} />
         <Animated.View style={{transform: [{translateX: translateXNegative}]}}>
@@ -255,6 +268,7 @@ const Home = ({navigation}: HomeScreenCustomProps) => {
                 value={inputValue}
                 placeholder={content[typeContent].placeholder}
                 maxLength={inputMaxLength}
+                style={styles.inputTextContent}
               />
             </View>
             <ButtonComponent
@@ -298,7 +312,7 @@ const Home = ({navigation}: HomeScreenCustomProps) => {
           </Text>
         </ButtonComponent>
       </Animated.View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

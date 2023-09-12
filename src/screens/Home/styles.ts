@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background.defaultBeige,
-    alignItems: 'center',
   },
   content: {
     flex: 7,
@@ -38,8 +37,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 4,
-    width: '100%',
-    paddingHorizontal: 20,
+    paddingHorizontal: 16,
   },
   marginPrimaryButton: {marginBottom: 10},
   // @ts-ignore
@@ -52,7 +50,6 @@ const styles = StyleSheet.create({
     ...font.style.halveticaBold,
   },
   inputTextContainer: {
-    paddingLeft: 10,
     minWidth: '90%',
     height: 60,
     borderWidth: 0.6,
@@ -60,6 +57,11 @@ const styles = StyleSheet.create({
     borderColor: colors.border.lavender,
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  inputTextContent: {
+    width: '100%',
+    height: '1000%',
+    textAlign: 'center',
   },
   pastIconBox: {
     flex: 1,
