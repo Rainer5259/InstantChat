@@ -1,0 +1,40 @@
+<svg width="393" height="631" viewBox="0 0 393 631" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g opacity="0.1" filter="url(#filter0_f_663_152)">
+<path d="M274.924 158C274.924 166.284 267.464 173 258.262 173C249.06 173 241.6 166.284 241.6 158C241.6 149.716 249.06 143 258.262 143C267.464 143 274.924 149.716 274.924 158Z" fill="#A5474C" fill-opacity="0.5"/>
+<ellipse cx="358.789" cy="347" rx="16.662" ry="15" fill="#73FF67" fill-opacity="0.5"/>
+<ellipse cx="114.413" cy="282" rx="16.662" ry="15" fill="#8BB4F7" fill-opacity="0.5"/>
+<ellipse cx="343.238" cy="601" rx="16.662" ry="15" fill="#D9D9D9" fill-opacity="0.5"/>
+<ellipse cx="46.6537" cy="571" rx="16.662" ry="15" fill="#D81F78" fill-opacity="0.5"/>
+<ellipse cx="268.015" cy="317" rx="16.662" ry="15" fill="#F18A8A" fill-opacity="0.5"/>
+<ellipse cx="42.2104" cy="152" rx="16.662" ry="15" fill="#873535" fill-opacity="0.5"/>
+<ellipse cx="165.51" cy="541" rx="16.662" ry="15" fill="#489325" fill-opacity="0.5"/>
+<ellipse cx="343.736" cy="335" rx="16.662" ry="15" fill="#DB00FF" fill-opacity="0.5"/>
+<ellipse cx="198.603" cy="350" rx="16.662" ry="15" fill="#DB00FF" fill-opacity="0.5"/>
+<ellipse cx="93.4355" cy="69" rx="16.662" ry="15" fill="#DB00FF" fill-opacity="0.5"/>
+<ellipse cx="215.43" cy="249" rx="16.662" ry="15" fill="#DB00FF" fill-opacity="0.5"/>
+<ellipse cx="376.338" cy="32" rx="16.662" ry="15" fill="#DB00FF" fill-opacity="0.5"/>
+<ellipse cx="127.089" cy="431" rx="16.662" ry="15" fill="#DB00FF" fill-opacity="0.5"/>
+<path d="M93.308 320L107.738 342.5H78.8783L93.308 320Z" fill="#EECA4C" fill-opacity="0.5"/>
+<path d="M16.662 219L31.0918 241.5H2.23229L16.662 219Z" fill="#7C6A6A" fill-opacity="0.5"/>
+<path d="M136.629 122L151.059 144.5H122.199L136.629 122Z" fill="#10C6A5" fill-opacity="0.5"/>
+<path d="M76.6454 391L91.0752 413.5H62.2157L76.6454 391Z" fill="#732D94" fill-opacity="0.5"/>
+<path d="M294.362 478L308.792 500.5H279.932L294.362 478Z" fill="#003FA7" fill-opacity="0.5"/>
+<path d="M268.814 249L283.244 271.5H254.384L268.814 249Z" fill="#ABB812" fill-opacity="0.5"/>
+<path d="M321.022 122L335.452 144.5H306.593L321.022 122Z" fill="#A486A5" fill-opacity="0.5"/>
+<path d="M192.169 400L206.599 422.5H177.74L192.169 400Z" fill="#92C6F7" fill-opacity="0.5"/>
+<path d="M252.152 601L266.582 623.5H237.723L252.152 601Z" fill="#AB36AD" fill-opacity="0.5"/>
+<path d="M103.305 556L117.734 578.5H88.8749L103.305 556Z" fill="#FF5C5C" fill-opacity="0.5"/>
+<path d="M348.995 20L363.424 42.5H334.565L348.995 20Z" fill="#FF5C5C" fill-opacity="0.5"/>
+<path d="M117.623 172L132.053 194.5H103.194L117.623 172Z" fill="#FF5C5C" fill-opacity="0.5"/>
+<path d="M242.774 24L257.204 46.5H228.345L242.774 24Z" fill="#FF5C5C" fill-opacity="0.5"/>
+<path d="M218.586 9L233.016 31.5H204.156L218.586 9Z" fill="#FF5C5C" fill-opacity="0.5"/>
+<path d="M50.3158 4L64.7456 26.5H35.8861L50.3158 4Z" fill="#FF5C5C" fill-opacity="0.5"/>
+</g>
+<defs>
+<filter id="filter0_f_663_152" x="-1.76758" y="0" width="398.768" height="627.5" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="2" result="effect1_foregroundBlur_663_152"/>
+</filter>
+</defs>
+</svg>

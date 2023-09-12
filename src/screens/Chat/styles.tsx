@@ -1,73 +1,81 @@
 import {StyleSheet} from 'react-native';
-import colors from '../../components/theme';
+import colors from '../../components/theme/colors';
+import font from '../../components/theme/font';
 
 const styles = StyleSheet.create({
+  geometryBackground: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: -1,
+  },
+
   container: {
     flex: 1,
-    backgroundColor: colors.background.beige,
+    backgroundColor: colors.background.defaultBeige,
   },
-  opacityView: {backgroundColor: colors.opacityRGBA.beigeGray},
-  messageContainer: {
-    backgroundColor: colors.background.beigeGray,
-    width: '70%',
-    maxHeight: 600,
-    borderRadius: 12,
-    alignSelf: 'flex-end',
-    padding: 8,
-    marginRight: 30,
-    marginVertical: 4,
-  },
-  messageText: {
-    fontSize: 14,
-    color: colors.text.black,
-    fontWeight: 'bold',
-    fontStyle: 'italic',
-  },
+
+  content: {flex: 9},
+
   inputTextContainer: {
-    padding: 14,
-    alignSelf: 'center',
-    width: '80%',
-    height: 44,
-    borderWidth: 1,
-    borderRadius: 18,
-    borderColor: colors.border.paleBeigeGray,
+    paddingHorizontal: 8,
+    height: 40,
+    flex: 0.95,
   },
 
-  footerAlignment: {
+  inputContainer: {
+    borderWidth: 2.4,
+    borderTopLeftRadius: 24,
+    borderTopEndRadius: 24,
+    borderColor: colors.border.cornflowerBlue,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
     alignItems: 'center',
-    marginBottom: 10,
+    width: '100%',
+    paddingLeft: 10,
   },
-  subjectAlignment: {
-    alignSelf: 'flex-start',
-    height: 60,
-    justifyContent: 'space-evenly',
+  footer: {
+    marginHorizontal: 20,
+  },
+  header: {
+    justifyContent: 'space-between',
+    height: 70,
   },
 
-  sendButton: {
-    width: 36,
-    height: 36,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderStartEndRadius: 90,
-    borderEndEndRadius: 90,
-    borderTopStartRadius: 30,
-    borderRadius: 1,
-    backgroundColor: colors.background.beigeGray,
-  },
   clipboardButton: {
-    height: 30,
-    backgroundColor: colors.opacityRGBA.beigeGray,
-    borderRadius: 12,
-    justifyContent: 'center',
+    borderEndEndRadius: 12,
+    borderStartEndRadius: 12,
+    flex: 1,
+  },
+  headerAlignmentButton: {
+    flexDirection: 'row',
   },
   primaryTextBold: {
-    fontWeight: '800',
+    fontWeight: '700',
+    fontSize: font.size.small,
     paddingHorizontal: 8,
   },
   textPadding: {
+    fontSize: 12,
     paddingHorizontal: 8,
+  },
+  headerChatIDBorder: {
+    borderTopRightRadius: 6,
+    borderEndEndRadius: 6,
+    backgroundColor: colors.opacityRGBA.cottonCandyPink,
+    flex: 9,
+    justifyContent: 'center',
+    marginRight: 10,
+    height: 28,
+  },
+  headerSubjectBorder: {
+    borderTopRightRadius: 6,
+    borderEndEndRadius: 6,
+    backgroundColor: colors.opacityRGBA.cottonCandyPink,
+    justifyContent: 'center',
+    width: 210,
+    height: 28,
   },
 });
 export default styles;

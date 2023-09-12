@@ -16,6 +16,7 @@
     "@reduxjs/toolkit": "^1.9.5",
     "@types/react-native-crypto-js": "^1.0.0",
     "firebase": "^10.1.0",
+    "lottie-react-native": "^6.2.0",
     "react": "18.2.0",
     "react-native": "0.72.3",
     "react-native-crypto-js": "^1.0.0",
