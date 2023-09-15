@@ -80,8 +80,9 @@ const ChatContainer = () => {
     fetchLiveChats();
     setGuestID();
   }, []);
-  const handleSend = () => {
-    const getCurrentDate = new Date().getTime().toString();
+  const handleSendMessage = () => {
+    const getCurrentDate = new Date().toString().slice(0, -8);
+    console.log(getCurrentDate);
     let content = CryptoJS.AES.encrypt(
       messageText,
       process.env.MESSAGE_CRYPTOGRAPHY_KEY!,
@@ -151,7 +152,9 @@ const ChatContainer = () => {
               value={messageText}
               onChangeText={e => setMessageText(e)}
             />
-            <ButtonComponent activeOpacity={0.8} onPress={() => handleSend()}>
+            <ButtonComponent
+              activeOpacity={0.8}
+              onPress={() => handleSendMessage()}>
               <SentButtonIcon height={24} width={24} />
             </ButtonComponent>
           </View>
