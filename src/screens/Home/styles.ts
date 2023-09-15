@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
   // @ts-ignore
   primaryText: {
     ...font.style.halveticaBold,
+    color: colors.text.black,
   },
   inputTextContainer: {
     minWidth: '90%',
