@@ -82,7 +82,7 @@ const ChatContainer = () => {
   }, []);
   const handleSendMessage = () => {
     const getCurrentDate = new Date().toString().slice(0, -8);
-    console.log(getCurrentDate);
+
     let content = CryptoJS.AES.encrypt(
       messageText,
       process.env.MESSAGE_CRYPTOGRAPHY_KEY!,
@@ -120,7 +120,7 @@ const ChatContainer = () => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 50 : 0}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 50 : -250}
       style={styles.container}>
       <View style={styles.content}>
         <GeometryBackground style={styles.geometryBackground} />
