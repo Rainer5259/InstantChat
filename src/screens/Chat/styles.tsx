@@ -55,10 +55,12 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: font.size.small,
     paddingHorizontal: 8,
+    color: colors.text.black,
   },
   textPadding: {
     fontSize: 12,
     paddingHorizontal: 8,
+    color: colors.text.black,
   },
   headerChatIDBorder: {
     borderTopRightRadius: 6,
