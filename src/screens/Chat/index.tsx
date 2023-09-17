@@ -103,14 +103,10 @@ const ChatContainer = () => {
 
     return update(ref(db), updates)
       .then(() => {
-        onValue(
-          chatRef,
-          snapshot => {
-            dispatch(setChatData(snapshot.val()));
-            return;
-          },
-          {onlyOnce: true},
-        );
+        onValue(chatRef, snapshot => {
+          dispatch(setChatData(snapshot.val()));
+          return;
+        });
       })
       .catch(err => {});
   };
