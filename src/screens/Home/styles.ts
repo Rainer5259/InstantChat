@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import colors from '../../components/theme/colors';
-import font from '../../components/theme/font';
+import fontFamily from '../../components/theme/font';
 
 const styles = StyleSheet.create({
   container: {
@@ -40,15 +40,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   marginPrimaryButton: {marginBottom: 10},
-  // @ts-ignore
   title: {
-    ...font.style.halveticaBold,
-    fontSize: font.size.extraLarge,
+    ...fontFamily.roboto.extraLarge,
   },
-  // @ts-ignore
   primaryText: {
-    ...font.style.halveticaBold,
-    color: colors.text.black,
+    ...fontFamily.roboto.medium,
   },
   inputTextContainer: {
     minWidth: '90%',
@@ -61,7 +57,7 @@ const styles = StyleSheet.create({
   },
   inputTextContent: {
     width: '100%',
-    height: '1000%',
+
     textAlign: 'center',
   },
   pastIconBox: {

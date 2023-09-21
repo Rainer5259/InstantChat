@@ -1,29 +1,31 @@
-const font = {
-  weight: {
-    regular: '600',
-    semiBold: '700',
-    bold: '800',
-    extraBold: '900',
-  },
-  family: {
-    halvetica: 'halvetica',
-    sansation: 'sansation',
-  },
-  size: {
-    light: 12,
-    small: 14,
-    medium: 16,
-    large: 18,
-    extraLarge: 32,
-  },
-  style: {
-    halveticaLight: {fontWeight: '200', fontFamily: 'Helvetica', fontSize: 16},
-    halveticaBold: {fontWeight: '900', fontFamily: 'Helvetica', fontSize: 16},
-    halveticaHeavy: {fontWeight: 'bold', fontFamily: 'Helvetica', fontSize: 18},
-    sansationSemiBold: {
-      fontFamily: 'sansation',
+import colors from '../colors';
+
+const fontFamily = {
+  roboto: {
+    light: {fontFamily: 'Roboto-Light', fontSize: 12, color: colors.text.black},
+    lightBold: {
+      fontFamily: 'Roboto-Bold',
+      fontSize: 12,
+      color: colors.text.black,
+    },
+    lightItalic: {
+      fontFamily: 'Roboto-LightItalic',
+      fontSize: 12,
+      color: colors.text.black,
+    },
+    regular: {
+      fontFamily: 'Roboto-Medium',
       fontSize: 14,
+      color: colors.text.black,
+    },
+    medium: {fontFamily: 'Roboto-Bold', fontSize: 16, color: colors.text.black},
+    large: {fontFamily: 'Roboto-Black', fontSize: 18, color: colors.text.black},
+    extraLarge: {
+      fontFamily: 'Roboto-Black',
+      fontSize: 32,
+      color: colors.text.black,
     },
   },
 };
-export default font;
+
+export default fontFamily;

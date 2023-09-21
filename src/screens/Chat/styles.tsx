@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import colors from '../../components/theme/colors';
-import font from '../../components/theme/font';
+import fontFamily from '../../components/theme/font';
 
 const styles = StyleSheet.create({
   geometryBackground: {
@@ -52,8 +52,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   primaryTextBold: {
-    fontWeight: '700',
-    fontSize: font.size.small,
+    ...fontFamily.roboto.lightBold,
     paddingHorizontal: 8,
     color: colors.text.black,
   },
