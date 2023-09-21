@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
+  Animated,
   KeyboardAvoidingView,
   Platform,
   Text,
@@ -32,6 +33,7 @@ import {UpdatesMessageProps, UpdatesUserIDProps} from '../../types/chat';
 
 import styles from './styles';
 import app from '../../services/firebase';
+import LottieView from 'lottie-react-native';
 
 const ChatContainer = () => {
   const {chat_id, users, subject, message} = useSelector(
@@ -43,6 +45,9 @@ const ChatContainer = () => {
   const dispatch = useDispatch();
   const db = getDatabase(app);
   const chatRef = ref(db, `chats/${chat_id}/`);
+  const LottieViewAnimated = Animated.createAnimatedComponent(LottieView);
+  const [showDollTyping, setShowDollTyping] = useState<boolean>(true);
+  const translateXNegative = useRef(new Animated.Value(1)).current;
 
   const setGuestID = async () => {
     let alreadyExistHostID = users.host_id === '' ? 'host_id' : 'guest_id';
@@ -129,6 +134,36 @@ const ChatContainer = () => {
     setGuestID();
   }, []);
 
+  useEffect(() => {
+    if (message.length > 0) {
+      const dollTypingAnimation = Animated.timing(translateXNegative, {
+        toValue: 0,
+        duration: 2000,
+        useNativeDriver: false,
+      });
+
+      const timeout = setTimeout(() => {
+        dollTypingAnimation.start(() => {
+          setShowDollTyping(false);
+          clearTimeout(timeout);
+          dollTypingAnimation.stop();
+        });
+      }, 1000);
+      return;
+    }
+  }, [message.length > 0]);
+
+  const DollTypingAnimated = useMemo(() => {
+    return (
+      <LottieViewAnimated
+        source={require('../../assets/json/doll_typing.json')}
+        speed={0.4}
+        autoPlay
+        style={[styles.lottieViewContainer, {opacity: translateXNegative}]}
+      />
+    );
+  }, []);
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -158,6 +193,8 @@ const ChatContainer = () => {
         </View>
 
         <MessageContainer />
+
+        {showDollTyping && DollTypingAnimated}
 
         <View style={styles.footer}>
           <View style={styles.inputContainer}>

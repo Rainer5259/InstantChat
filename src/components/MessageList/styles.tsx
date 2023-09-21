@@ -1,12 +1,8 @@
 import {StyleSheet} from 'react-native';
-import font from '../theme/font';
+import fontFamily from '../theme/font';
 import colors from '../theme/colors';
 
 const styles = StyleSheet.create({
-  lottieViewContainer: {
-    flex: 1,
-    opacity: 0.3,
-  },
   container: {
     backgroundColor: colors.background.periwinkle,
     maxWidth: '70%',
@@ -23,22 +19,14 @@ const styles = StyleSheet.create({
     marginVertical: 6,
   },
   textHeader: {
-    fontSize: font.size.light,
-    fontFamily: 'poppins',
+    ...fontFamily.roboto.light,
     textAlign: 'right',
   },
   textContent: {
     marginTop: 6,
-    color: colors.text.black,
-    fontFamily: font.family.sansation,
+    ...fontFamily.roboto.medium,
     alignSelf: 'flex-end',
     textAlign: 'right',
-    fontWeight: '700',
-  },
-  primaryTextBold: {
-    fontWeight: '700',
-    fontSize: font.size.small,
-    paddingHorizontal: 8,
   },
   letsTalk: {flex: 1, alignItems: 'center', justifyContent: 'center'},
 });

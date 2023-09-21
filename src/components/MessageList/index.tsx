@@ -1,11 +1,10 @@
 import React from 'react';
 import CryptoJS from 'react-native-crypto-js';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, Animated} from 'react-native';
 import {RootState} from '../../redux/store';
 import {useSelector} from 'react-redux';
 import {ChatProps, MessageProps} from '../../types/chat';
 import styles from './styles';
-import LottieView from 'lottie-react-native';
 
 interface FlatListMessageProps {
   item: MessageProps;
@@ -36,16 +35,9 @@ const MessageContainer = () => {
     );
   };
 
-  return message.length === 0 ? (
-    <LottieView
-      source={require('../../assets/json/doll_typing.json')}
-      speed={0.4}
-      autoPlay
-      style={styles.lottieViewContainer}
-    />
-  ) : (
+  return (
     <FlatList
-      data={Object.values(message)}
+      data={message}
       renderItem={({item}: FlatListMessageProps) => (
         <RenderMessage item={item} />
       )}
