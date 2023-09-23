@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import type {ChatProps} from '../../../types/chat/index';
+import type {ChatProps} from '.types/chat';
 
 const initialState: ChatProps = {
   chat_id: '',
