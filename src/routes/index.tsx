@@ -3,9 +3,9 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {RootStackParamList} from './types';
 import {Provider} from 'react-redux';
 
-import Chat from '../screens/Chat';
-import store from '../redux/store';
-import Home from '../screens/Home';
+import Chat from '@screens/Chat';
+import store from '@redux/store';
+import Home from '@screens/Home';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
