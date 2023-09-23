@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {FC} from 'react';
 import Routes from './src/routes';
 import Toast from 'react-native-toast-message';
 import {Platform, SafeAreaView} from 'react-native';
 import colors from './src/components/theme/colors';
 
-const App: JSX.ElementType = () => {
+const App: FC = () => {
   return (
     <SafeAreaView
       style={[
