@@ -24,7 +24,10 @@
       ],
       ".types/*": [
         "types/*"
-      ]
+      ],
+      "@theme/*": [
+        "components/theme/*"
+      ],
     }
   },
 }
