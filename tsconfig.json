@@ -18,6 +18,12 @@
       ],
       "@utils/*": [
         "utils/*"
+      ],
+      "@redux/*": [
+        "redux/*"
+      ],
+      ".types/*": [
+        "types/*"
       ]
     }
   },
