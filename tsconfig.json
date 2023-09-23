@@ -22,6 +22,9 @@
       "@redux/*": [
         "redux/*"
       ],
+      "@routes/*": [
+        "routes/*"
+      ],
       ".types/*": [
         "types/*"
       ],

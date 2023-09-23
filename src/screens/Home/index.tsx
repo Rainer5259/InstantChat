@@ -8,23 +8,23 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import ButtonComponent from '../../components/ButtonComponent';
+import ButtonComponent from '@components/ButtonComponent';
 import styles from './styles';
-import {ChatProps} from '../../types/chat';
+import {ChatProps} from 'types/chat';
 import {getDatabase, onValue, ref, set, update} from 'firebase/database';
 import {useDispatch} from 'react-redux';
-import app from '../../services/firebase';
+import app from '@services/firebase';
 import {v4 as uuidV4} from 'uuid';
 import 'react-native-get-random-values';
-import {setChatData} from '../../redux/features/chatData';
-import {HomeContent} from '../../utils/enums/screens';
+import {setChatData} from '@redux/features/chatData';
+import {HomeContent} from '@utils/enums/screens';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
-import {HomeScreenCustomProps} from '../../routes/types/NativeStackScreenCustomProps';
-import colors from '../../components/theme/colors';
-import Logo from '../../assets/svg/logo_icon.svg';
-import Past from '../../assets/svg/past_from_clipboard_icon.svg';
+import {HomeScreenCustomProps} from '@routes/types/NativeStackScreenCustomProps';
+import colors from '@components/theme/colors';
+import Logo from '@assets/svg/logo_icon.svg';
+import Past from '@assets/svg/past_from_clipboard_icon.svg';
 import Clipboard from '@react-native-clipboard/clipboard';
-import {uuidV4Pattern} from '../../utils/masks';
+import {uuidV4Pattern} from '@utils/masks';
 type UpdatesProps = {[key: string]: string};
 type UpdatesUserLimitProps = {[key: string]: number};
 
