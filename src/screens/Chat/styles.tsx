@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
-import colors from '@components/theme/colors';
-import fontFamily from '@components/theme/font';
+import colors from '~/shared/theme/colors';
+import fontFamily from '~/shared/theme/font';
 
 const styles = StyleSheet.create({
   geometryBackground: {

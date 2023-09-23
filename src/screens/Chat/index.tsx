@@ -21,18 +21,18 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import Toast from 'react-native-toast-message';
 import CryptoJS from 'react-native-crypto-js';
 
-import MessageContainer from '@components/MessageList';
-import ButtonComponent from '@components/ButtonComponent';
-import GeometryBackground from '@assets/svg/geometry_background_icon.svg';
-import CopyIcon from '@assets/svg/copy_to_clipboard_icon.svg';
-import SentButtonIcon from '@assets/svg/sent_button_icon.svg';
+import MessageContainer from '~/components/MessageList';
+import ButtonComponent from '~/components/ButtonComponent';
+import GeometryBackground from '~/assets/svg/geometry_background_icon.svg';
+import CopyIcon from '~/assets/svg/copy_to_clipboard_icon.svg';
+import SentButtonIcon from '~/assets/svg/sent_button_icon.svg';
 
-import {RootState} from '@redux/store';
-import {setChatData} from '@redux/features/chatData';
-import {UpdatesMessageProps, UpdatesUserIDProps} from '.types/chat';
+import {RootState} from '~/redux/store';
+import {setChatData} from '~/redux/features/chatData';
+import {UpdatesMessageProps, UpdatesUserIDProps} from '~/types/chat';
 
 import styles from './styles';
-import app from '@services/firebase';
+import app from '~/services/firebase';
 import LottieView from 'lottie-react-native';
 
 const ChatContainer = () => {
@@ -156,7 +156,7 @@ const ChatContainer = () => {
   const DollTypingAnimated = useMemo(() => {
     return (
       <LottieViewAnimated
-        source={require('@assets/json/doll_typing.json')}
+        source={require('~/assets/json/doll_typing.json')}
         speed={0.4}
         autoPlay
         style={[styles.lottieViewContainer, {opacity: translateXNegative}]}

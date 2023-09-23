@@ -1,4 +1,4 @@
-import colors from '@theme/colors';
+import colors from '~/shared/theme/colors';
 
 const fontFamily = {
   roboto: {

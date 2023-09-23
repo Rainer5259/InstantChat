@@ -3,12 +3,12 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {RootStackParamList} from './types';
 import {Provider} from 'react-redux';
 
-import Chat from '@screens/Chat';
-import store from '@redux/store';
-import Home from '@screens/Home';
+import Home from '~/screens/Home';
+import store from '~/redux/store';
+import ChatContainer from '~/screens/Chat';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-
+console.log(Home);
 const Routes = () => {
   return (
     <Provider store={store}>
@@ -19,7 +19,7 @@ const Routes = () => {
           }}
           initialRouteName="Home">
           <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Chat" component={Chat} />
+          <Stack.Screen name="Chat" component={ChatContainer} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

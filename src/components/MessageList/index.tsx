@@ -1,9 +1,9 @@
 import React from 'react';
 import CryptoJS from 'react-native-crypto-js';
 import {View, Text, FlatList} from 'react-native';
-import {RootState} from '@redux/store';
+import {RootState} from '~/redux/store';
 import {useSelector} from 'react-redux';
-import {ChatProps, MessageProps} from '.types/chat';
+import {ChatProps, MessageProps} from '~/types/chat';
 import styles from './styles';
 
 interface FlatListMessageProps {
