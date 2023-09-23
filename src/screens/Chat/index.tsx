@@ -156,7 +156,7 @@ const ChatContainer = () => {
   const DollTypingAnimated = useMemo(() => {
     return (
       <LottieViewAnimated
-        source={require('../../assets/json/doll_typing.json')}
+        source={require('@assets/json/doll_typing.json')}
         speed={0.4}
         autoPlay
         style={[styles.lottieViewContainer, {opacity: translateXNegative}]}
