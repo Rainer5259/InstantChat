@@ -1,22 +1,8 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {
-  Animated,
-  KeyboardAvoidingView,
-  Platform,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
-import {
-  child,
-  getDatabase,
-  onValue,
-  push,
-  ref,
-  update,
-} from 'firebase/database';
-import {useSelector, useDispatch} from 'react-redux';
-import {v4 as uuidV4} from 'uuid';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Animated, KeyboardAvoidingView, Platform, Text, TextInput, View } from 'react-native';
+import { child, getDatabase, onValue, push, ref, remove, update } from 'firebase/database';
+import { useSelector, useDispatch } from 'react-redux';
+import { v4 as uuidV4 } from 'uuid';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Toast from 'react-native-toast-message';
 import CryptoJS from 'react-native-crypto-js';
@@ -27,32 +13,75 @@ import GeometryBackground from '~/assets/svg/geometry_background_icon.svg';
 import CopyIcon from '~/assets/svg/copy_to_clipboard_icon.svg';
 import SentButtonIcon from '~/assets/svg/sent_button_icon.svg';
 
-import {RootState} from '~/redux/store';
-import {setChatData} from '~/redux/features/chatData';
-import {UpdatesMessageProps, UpdatesUserIDProps} from '~/types/chat';
+import { type RootState } from '~/redux/store';
+import { chatInitialState, setChatData } from '~/redux/features/chatData';
+import { type UpdatesMessageProps, type UpdatesUserIDProps } from '~/types/chat';
 
 import styles from './styles';
 import app from '~/services/firebase';
 import LottieView from 'lottie-react-native';
+import { type ChatScreenCustomProps } from '~/routes/types';
 
-const ChatContainer = () => {
-  const {chat_id, users, subject, message} = useSelector(
+const ChatContainer = ({ navigation }: ChatScreenCustomProps) => {
+  const { chat_id, users, subject, message } = useSelector(
     (state: RootState) => state.chatDataSlice,
   );
   const [messageText, setMessageText] = useState<string>('');
   const [userID, setUserID] = useState<string>('');
+  const [showDollTyping, setShowDollTyping] = useState<boolean>(true);
+
   const randomUserID: string = uuidV4();
   const dispatch = useDispatch();
   const db = getDatabase(app);
   const chatRef = ref(db, `chats/${chat_id}/`);
   const LottieViewAnimated = Animated.createAnimatedComponent(LottieView);
-  const [showDollTyping, setShowDollTyping] = useState<boolean>(true);
-  const translateXNegative = useRef(new Animated.Value(1)).current;
+
+  const animatedRef = {
+    translateY: useRef(new Animated.Value(0)).current,
+    translateYNegative: useRef(new Animated.Value(0)).current,
+    opacityMessageContainer: useRef(new Animated.Value(1)).current,
+    opacityDollTyping: useRef(new Animated.Value(1)).current,
+  };
+
+  const startAnimation = (
+    animatedValue: Animated.Value,
+    toValue: number,
+    callBack?: () => void,
+  ) => {
+    Animated.timing(animatedValue, {
+      toValue,
+      duration: 1500,
+      useNativeDriver: false,
+    }).start(callBack);
+  };
+
+  const startAnimationWhenDeleteChat = Animated.parallel([
+    Animated.timing(animatedRef.opacityDollTyping, {
+      toValue: 0,
+      duration: 1500,
+      useNativeDriver: false,
+    }),
+    Animated.timing(animatedRef.opacityMessageContainer, {
+      toValue: 0,
+      duration: 1500,
+      useNativeDriver: false,
+    }),
+    Animated.timing(animatedRef.translateY, {
+      toValue: 400,
+      duration: 1500,
+      useNativeDriver: false,
+    }),
+    Animated.timing(animatedRef.translateYNegative, {
+      toValue: -400,
+      duration: 1500,
+      useNativeDriver: false,
+    }),
+  ]);
 
   const setGuestID = async () => {
-    let alreadyExistHostID = users.host_id === '' ? 'host_id' : 'guest_id';
+    const alreadyExistHostID = users.host_id === '' ? 'host_id' : 'guest_id';
 
-    const data = {user_id: randomUserID};
+    const data = { user_id: randomUserID };
     const updates: UpdatesUserIDProps = {};
     const endpoint = `/chats/${chat_id}/users/${alreadyExistHostID}`;
 
@@ -62,41 +91,38 @@ const ChatContainer = () => {
       .then(() => {
         setUserID(randomUserID);
       })
-      .catch(err => err);
+      .catch((err) => err);
   };
 
   const handleJoinWithChatID = async () => {
     onValue(
       chatRef,
-      snapshot => {
+      (snapshot) => {
         if (snapshot.exists()) {
           dispatch(setChatData(snapshot.val()));
-          return;
         }
-        return;
       },
-      {onlyOnce: true},
+      { onlyOnce: true },
     );
   };
 
   const handleSendMessage = async () => {
     const getCurrentDate = new Date().toString().slice(0, -8);
-    const db = getDatabase(app);
     const updates: UpdatesMessageProps = {};
     const messageKey: string | null = push(child(ref(db), 'chats')).key;
     const endpoint = '/chats/' + chat_id + '/message/';
 
-    let content = CryptoJS.AES.encrypt(
+    const content = CryptoJS.AES.encrypt(
       messageText,
-      process.env.MESSAGE_CRYPTOGRAPHY_KEY!,
+      process.env.MESSAGE_CRYPTOGRAPHY_KEY,
     ).toString();
 
-    let messageContent = [
+    const messageContent = [
       ...message,
       {
         key: messageKey,
         user_id: userID,
-        content: content,
+        content,
         created_at: getCurrentDate,
         updated_at: getCurrentDate,
       },
@@ -106,14 +132,13 @@ const ChatContainer = () => {
 
     setMessageText('');
 
-    return update(ref(db), updates)
+    await update(ref(db), updates)
       .then(() => {
-        onValue(chatRef, snapshot => {
+        onValue(chatRef, (snapshot) => {
           dispatch(setChatData(snapshot.val()));
-          return;
         });
       })
-      .catch(err => {});
+      .catch((err) => {});
   };
 
   const copyChatIDToClipboard = async () => {
@@ -126,6 +151,26 @@ const ChatContainer = () => {
     });
   };
 
+  const handleDeleteChat = async () => {
+    const endpoint = '/chats/' + chat_id;
+    const chatReference = ref(db, endpoint);
+
+    await remove(chatReference)
+      .then(() => {
+        startAnimationWhenDeleteChat.start(() => {
+          Toast.show({ type: 'success', text1: 'Chat deleted successfully' });
+          dispatch(setChatData(chatInitialState));
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'Home' }],
+          });
+        });
+      })
+      .catch(() => {
+        Toast.show({ type: 'error', text1: 'An error occurred while deleting chat' });
+      });
+  };
+
   useEffect(() => {
     handleJoinWithChatID();
   }, []);
@@ -136,20 +181,12 @@ const ChatContainer = () => {
 
   useEffect(() => {
     if (message.length > 0) {
-      const dollTypingAnimation = Animated.timing(translateXNegative, {
-        toValue: 0,
-        duration: 2000,
-        useNativeDriver: false,
-      });
-
       const timeout = setTimeout(() => {
-        dollTypingAnimation.start(() => {
+        startAnimation(animatedRef.opacityDollTyping, 0, () => {
           setShowDollTyping(false);
           clearTimeout(timeout);
-          dollTypingAnimation.stop();
         });
       }, 1000);
-      return;
     }
   }, [message.length > 0]);
 
@@ -159,7 +196,7 @@ const ChatContainer = () => {
         source={require('~/assets/json/doll_typing.json')}
         speed={0.4}
         autoPlay
-        style={[styles.lottieViewContainer, {opacity: translateXNegative}]}
+        style={[styles.lottieViewContainer, { opacity: animatedRef.opacityDollTyping }]}
       />
     );
   }, []);
@@ -171,7 +208,8 @@ const ChatContainer = () => {
       style={styles.container}>
       <View style={styles.content}>
         <GeometryBackground style={styles.geometryBackground} />
-        <View style={styles.header}>
+        <Animated.View
+          style={[styles.header, { transform: [{ translateY: animatedRef.translateYNegative }] }]}>
           <View style={styles.headerAlignmentButton}>
             <View style={styles.headerChatIDBorder}>
               <Text style={styles.textPadding}>
@@ -179,7 +217,9 @@ const ChatContainer = () => {
               </Text>
             </View>
             <ButtonComponent
-              onPress={() => copyChatIDToClipboard()}
+              onPress={async () => {
+                await copyChatIDToClipboard();
+              }}
               activeOpacity={0.8}
               style={styles.clipboardButton}>
               <CopyIcon width={18} height={28} />
@@ -190,26 +230,33 @@ const ChatContainer = () => {
               <Text style={styles.primaryTextBold}>Subject:</Text> {subject}
             </Text>
           </View>
-        </View>
+        </Animated.View>
 
-        <MessageContainer />
+        <Animated.View style={{ opacity: animatedRef.opacityMessageContainer }}>
+          <MessageContainer />
+        </Animated.View>
 
         {showDollTyping && DollTypingAnimated}
 
-        <View style={styles.footer}>
+        <Animated.View
+          style={[styles.footer, { transform: [{ translateY: animatedRef.translateY }] }]}>
           <View style={styles.inputContainer}>
             <TextInput
               style={styles.inputTextContainer}
               value={messageText}
-              onChangeText={e => setMessageText(e)}
+              onChangeText={(e) => {
+                setMessageText(e);
+              }}
             />
             <ButtonComponent
               activeOpacity={0.8}
-              onPress={() => handleSendMessage()}>
+              onPress={async () => {
+                await handleSendMessage();
+              }}>
               <SentButtonIcon height={24} width={24} />
             </ButtonComponent>
           </View>
-        </View>
+        </Animated.View>
       </View>
     </KeyboardAvoidingView>
   );

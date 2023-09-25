@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import colors from '~/shared/theme/colors';
 import fontFamily from '~/shared/theme/font';
 
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background.defaultBeige,
   },
 
-  content: {flex: 9},
+  content: { flex: 9 },
 
   inputTextContainer: {
     paddingHorizontal: 8,
@@ -46,7 +46,10 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   footer: {
-    marginHorizontal: 20,
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    paddingHorizontal: 20,
   },
   header: {
     justifyContent: 'space-between',
