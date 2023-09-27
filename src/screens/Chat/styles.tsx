@@ -63,6 +63,8 @@ const styles = StyleSheet.create({
   },
   headerAlignmentButton: {
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   primaryTextBold: {
     ...fontFamily.roboto.lightBold,
@@ -83,13 +85,24 @@ const styles = StyleSheet.create({
     marginRight: 10,
     height: 28,
   },
-  headerSubjectBorder: {
+  subjectContainer: {
+    flex: 9,
     borderTopRightRadius: 6,
     borderEndEndRadius: 6,
     backgroundColor: colors.opacityRGBA.cottonCandyPink,
     justifyContent: 'center',
-    width: 210,
     height: 28,
+    marginRight: 120,
+  },
+  options: { flex: 1, marginRight: 10 },
+  accordionButton: {
+    height: 120,
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    right: 10,
+    top: 40,
+    left: 0,
+    position: 'absolute',
   },
 });
 export default styles;

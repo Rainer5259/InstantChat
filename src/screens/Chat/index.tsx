@@ -1,5 +1,13 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Animated, KeyboardAvoidingView, Platform, Text, TextInput, View } from 'react-native';
+import {
+  Animated,
+  KeyboardAvoidingView,
+  Platform,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { child, getDatabase, onValue, push, ref, remove, update } from 'firebase/database';
 import { useSelector, useDispatch } from 'react-redux';
 import { v4 as uuidV4 } from 'uuid';
@@ -12,6 +20,9 @@ import ButtonComponent from '~/components/ButtonComponent';
 import GeometryBackground from '~/assets/svg/geometry_background_icon.svg';
 import CopyIcon from '~/assets/svg/copy_to_clipboard_icon.svg';
 import SentButtonIcon from '~/assets/svg/sent_button_icon.svg';
+import TrashIcon from '~/assets/svg/trash_icon.svg';
+import HomeIcon from '~/assets/svg/home_icon.svg';
+import OptionsIcon from '~/assets/svg/options_icon.svg';
 
 import { type RootState } from '~/redux/store';
 import { chatInitialState, setChatData } from '~/redux/features/chatData';
@@ -21,6 +32,7 @@ import styles from './styles';
 import app from '~/services/firebase';
 import LottieView from 'lottie-react-native';
 import { type ChatScreenCustomProps } from '~/routes/types';
+import { OptionsButtons } from '~/components/OptionsButton';
 
 const ChatContainer = ({ navigation }: ChatScreenCustomProps) => {
   const { chat_id, users, subject, message } = useSelector(
@@ -29,6 +41,7 @@ const ChatContainer = ({ navigation }: ChatScreenCustomProps) => {
   const [messageText, setMessageText] = useState<string>('');
   const [userID, setUserID] = useState<string>('');
   const [showDollTyping, setShowDollTyping] = useState<boolean>(true);
+  const [showOptions, setShowOptions] = useState<boolean>(false);
 
   const randomUserID: string = uuidV4();
   const dispatch = useDispatch();
@@ -53,6 +66,13 @@ const ChatContainer = ({ navigation }: ChatScreenCustomProps) => {
       duration: 1500,
       useNativeDriver: false,
     }).start(callBack);
+  };
+
+  const navigateToHome = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Home' }],
+    });
   };
 
   const startAnimationWhenDeleteChat = Animated.parallel([
@@ -141,7 +161,7 @@ const ChatContainer = ({ navigation }: ChatScreenCustomProps) => {
       .catch((err) => {});
   };
 
-  const copyChatIDToClipboard = async () => {
+  const handleCopyChatIDToClipboard = async () => {
     Clipboard.setString(chat_id);
     Toast.show({
       type: 'success',
@@ -160,15 +180,16 @@ const ChatContainer = ({ navigation }: ChatScreenCustomProps) => {
         startAnimationWhenDeleteChat.start(() => {
           Toast.show({ type: 'success', text1: 'Chat deleted successfully' });
           dispatch(setChatData(chatInitialState));
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'Home' }],
-          });
+          navigateToHome();
         });
       })
       .catch(() => {
         Toast.show({ type: 'error', text1: 'An error occurred while deleting chat' });
       });
+  };
+
+  const handleShowOptions = () => {
+    setShowOptions((state) => !state);
   };
 
   useEffect(() => {
@@ -216,22 +237,42 @@ const ChatContainer = ({ navigation }: ChatScreenCustomProps) => {
                 <Text style={styles.primaryTextBold}>Chat ID:</Text> {chat_id}
               </Text>
             </View>
-            <ButtonComponent
-              onPress={async () => {
-                await copyChatIDToClipboard();
-              }}
-              activeOpacity={0.8}
-              style={styles.clipboardButton}>
-              <CopyIcon width={18} height={28} />
-            </ButtonComponent>
           </View>
-          <View style={styles.headerSubjectBorder}>
-            <Text style={styles.textPadding}>
-              <Text style={styles.primaryTextBold}>Subject:</Text> {subject}
-            </Text>
+          <View style={styles.headerAlignmentButton}>
+            <View style={styles.subjectContainer}>
+              <Text style={styles.textPadding}>
+                <Text style={styles.primaryTextBold}>Subject:</Text> {subject}
+              </Text>
+            </View>
+            <ButtonComponent
+              style={styles.options}
+              onPress={() => {
+                handleShowOptions();
+              }}>
+              <OptionsIcon width={18} height={28} />
+            </ButtonComponent>
+            <Animated.View style={styles.accordionButton}>
+              <OptionsButtons
+                callback={() => handleDeleteChat()}
+                icon={<TrashIcon />}
+                toValue={!showOptions ? 0 : 0}
+                showOptions={showOptions}
+              />
+              <OptionsButtons
+                callback={() => navigateToHome()}
+                icon={<HomeIcon />}
+                toValue={!showOptions ? -46 : 0}
+                showOptions={showOptions}
+              />
+              <OptionsButtons
+                callback={() => handleCopyChatIDToClipboard()}
+                icon={<CopyIcon />}
+                toValue={!showOptions ? -90 : 0}
+                showOptions={showOptions}
+              />
+            </Animated.View>
           </View>
         </Animated.View>
-
         <Animated.View style={{ opacity: animatedRef.opacityMessageContainer }}>
           <MessageContainer />
         </Animated.View>
